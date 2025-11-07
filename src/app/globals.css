@@ -29,7 +29,7 @@ body {
 }
 
 .square {
-  @apply w-20 h-20 border
+  @apply w-20 h-20
 }
 
 .square.white {

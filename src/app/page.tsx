@@ -1,20 +1,19 @@
+import { Piece, PieceName, Color, BoardState, BoardRow } from "./types";
 import Board from "./components/Board";
 
 export default function Home() {
 
-  const state: number[][] = []
+  const state: BoardState = []
   for (let i = 0; i < 8; i++) {
-    let row: number[] = []
+    let row: BoardRow = []
     for (let i = 0; i < 8; i++) {
-
-      row.push(1)
+      row.push(null)
     }
     state.push(row)
   }
 
   return (
-    <main>
-
+    <main className="h-screen w-screen flex flex-col justify-center items-center">
       <Board state={state} />
     </main>
   );

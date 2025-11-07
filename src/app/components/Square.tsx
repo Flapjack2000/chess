@@ -5,12 +5,12 @@ function Square({ color, piece }: {
   piece: Piece | null
 }) {
   const className = `square ${color === "white" ? "white" : "black"}`;
-  const svgPath = piece ? `${piece.piece}-${piece.color[0]}.svg` : "#"
+  const svgPath = (piece ? `pieces/${piece.name}-${piece.color[0]}.svg` : "#")
 
   return (
     <div className={className}>
       {piece &&
-        <svg href={svgPath} />
+        <img className="select-none" draggable={false} src={svgPath} />
       }
     </div>);
 }
