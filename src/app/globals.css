@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --white: #fef3c6;
+  --black: #461901;
 }
 
 @theme inline {
@@ -26,13 +29,13 @@ body {
 }
 
 .square {
-  .white {
-    @apply bg-amber-100
-  }
-
-  .black {
-    @apply bg-amber-950
-  }
-
   @apply w-20 h-20 border
+}
+
+.square.white {
+  background-color: var(--white);
+}
+
+.square.black {
+  background-color: var(--black);
 }

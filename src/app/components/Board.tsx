@@ -5,19 +5,16 @@ function Board({ state }: { state: number[][] }) {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center ">
         {
           state.map((row, rowIndex) => (
-
-            <div className="flex">
+            <div key={rowIndex} className="flex">
               {row.map((square, colIndex) => {
-                return <Square key={`${rowIndex}-${colIndex}`} color="black" piece={null} />
+                const color = ((rowIndex + colIndex) % 2) == 0 ? "white" : "black"
+                return <Square key={`${rowIndex}-${colIndex}`} color={color} piece={null} />
               })}
             </div>
-
-          )
-
-          )
+          ))
         }
       </div>
     </>
