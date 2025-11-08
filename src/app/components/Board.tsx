@@ -5,13 +5,13 @@ function Board({ state }: { state: BoardState }) {
 
   return (
     <>
-      <div className="flex flex-col items-center overflow-hidden rounded-lg">
+      <div className="flex flex-col items-center overflow-hidden rounded-md">
         {
-          state.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex">
-              {row.map((square, colIndex) => {
-                const color = (((rowIndex + colIndex) % 2) == 0 ? "white" : "black") as Color
-                return <Square key={`${rowIndex}-${colIndex}`} color={color} piece={square} />
+          Array.from(state.entries()).map(([rank, files], rowIndex) => (
+            <div key={rank} className="flex">
+              {Array.from(files.entries()).map(([file, piece], colIndex) => {
+                const color = (((rowIndex + colIndex) % 2) === 0 ? "white" : "black") as Color;
+                return <Square key={`${rank}-${file}`} color={color} piece={piece} />;
               })}
             </div>
           ))

@@ -5,12 +5,11 @@ function Square({ color, piece }: {
   piece: Piece | null
 }) {
   const className = `square ${color === "white" ? "white" : "black"}`;
-  const svgPath = (piece ? `pieces/${piece.name}-${piece.color[0]}.svg` : "#")
 
   return (
     <div className={className}>
       {piece &&
-        <img className="select-none cursor-grab active:cursor-grabbing " draggable={true} src={svgPath} />
+        <img className="select-none cursor-pointer" src={piece.svgPath} draggable={false} alt={piece.color + " " + piece.name} />
       }
     </div>);
 }

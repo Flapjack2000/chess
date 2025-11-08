@@ -1,4 +1,4 @@
-import { Piece, PieceName, Color, BoardState, BoardRow } from "./types";
+import { Piece, PieceName, Color, BoardState, BoardRow, Rank, File } from "./types";
 import Board from "./components/Board";
 
 function randomPiece(): Piece {
@@ -9,24 +9,34 @@ function randomPiece(): Piece {
   return new Piece(color, name);
 }
 
+function initialBoardState(): BoardState {
+  const state = new Map<Rank, Map<File, Piece | null>>();
+
+  const ranks = Array.from({ length: 8 }, (_, i) => (i + 1) as Rank);
+  const files: File[] = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+  for (const r of ranks) {
+    const row = new Map<File, Piece | null>();
+    for (const f of files) {
+      row.set(f, null);
+    }
+    state.set(r, row);
+  }
+
+  return state;
+}
+
 export default function Home() {
 
-  const state: BoardState = []
-  for (let i = 0; i < 8; i++) {
-    let row: BoardRow = []
-    for (let i = 0; i < 8; i++) {
-      row.push(randomPiece())
-    }
-    state.push(row)
-  }
+  const state = initialBoardState();
 
   return (
     <>
-      <aside className="*:cursor-pointer w-screen flex justify-center items-center gap-4 mt-20 mb-20">
-        <button className="border bg-white">New Game</button>
-        <button className="border bg-white">Share Game</button>
-        <button className="border bg-white">Save Game</button>
-        <button className="border bg-white">Settings</button>
+      <aside className="w-screen flex justify-center items-center gap-4 mt-20 mb-20">
+        <button className="p-1 border bg-white cursor-pointer">New Game</button>
+        <button className="p-1 border bg-white cursor-pointer">Share Game</button>
+        <button className="p-1 border bg-white cursor-pointer">Save Game</button>
+        <button className="p-1 border bg-white cursor-pointer">Settings</button>
       </aside>
       <main className="w-screen flex flex-col justify-center items-center">
         <Board state={state} />
