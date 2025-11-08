@@ -10,7 +10,7 @@ function Square({ color, piece }: {
   return (
     <div className={className}>
       {piece &&
-        <img className="select-none" draggable={false} src={svgPath} />
+        <img className="select-none cursor-grab active:cursor-grabbing " draggable={true} src={svgPath} />
       }
     </div>);
 }
