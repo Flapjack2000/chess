@@ -1,10 +1,10 @@
 import { Color, Piece } from "@/app/types"
 
-function Square({ color, piece }: {
-  color: Color,
+function Square({ bgColor: bgColor, piece }: {
+  bgColor: Color,
   piece: Piece | null
 }) {
-  const className = `square ${color === "white" ? "white" : "black"}`;
+  const className = `square ${bgColor === "white" ? "white" : "black"}`;
 
   return (
     <div className={className}>
