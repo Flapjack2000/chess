@@ -1,39 +1,11 @@
 import { Piece, PieceName, Color, BoardState, Rank, File } from "./types";
 import Board from "./components/Board";
+import { Plus, Share, Download, Settings } from "lucide-react";
 
 function indexToRankFile(row: number, col: number): [Rank, File] {
-  const rank: Rank = (row + 1) as Rank;
-  let file: File = "a";
-  switch (col) {
-    case 0:
-      file = "a";
-      break;
-    case 1:
-      file = "b";
-      break;
-    case 2:
-      file = "c";
-      break;
-    case 3:
-      file = "d";
-      break;
-    case 4:
-      file = "e";
-      break;
-    case 5:
-      file = "f";
-      break;
-    case 6:
-      file = "g";
-      break;
-    case 7:
-      file = "h";
-      break;
-    default:
-      console.error("File off board")
-      break;
-  }
-  return [rank, file]
+  const rank: Rank = (8 - row) as Rank;
+  const file: File = String.fromCharCode(97 + col) as File;
+  return [rank, file];
 }
 
 function randomPiece(): Piece {
@@ -92,17 +64,53 @@ export default function Home() {
 
   const state = initialBoardState();
 
-  return (
+  const PlayerProfile = ({ player, color }: { player: number, color: string }) => (
+    <div className="flex items-center gap-3">
+      <div className={`w-12 h-12 rounded-full ${color} flex items-center justify-center`}>
+        <span className="text-xl font-bold">
+          {player === 1 ? 'P1' : 'P2'}
+        </span>
+      </div>
+      <div>
+        <h3 className="font-semibold">Player {player}</h3>
+        <p className="text-sm text-gray-400">Rating: 1500</p>
+      </div>
+    </div>
+  );
+
+  const GameButtons = () => (
     <>
-      <aside className="w-screen flex justify-center items-center gap-4 mt-20 mb-20">
-        <button className="p-1 border text-black bg-white cursor-pointer">New Game</button>
-        <button className="p-1 border text-black bg-white cursor-pointer">Share Game</button>
-        <button className="p-1 border text-black bg-white cursor-pointer">Save Game</button>
-        <button className="p-1 border text-black bg-white cursor-pointer">Settings</button>
-      </aside>
-      <main className="w-screen flex flex-col justify-center items-center">
-        <Board state={state} />
-      </main >
+      <button className="px-4 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition cursor-pointer">
+        New Game
+      </button>
+      <button className="px-4 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition cursor-pointer">
+        Undo Move
+      </button>
+      <button className="px-4 py-3 bg-yellow-600 hover:bg-yellow-700 rounded-lg font-semibold transition cursor-pointer">
+        Offer Draw
+      </button>
+      <button className="px-4 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition cursor-pointer">
+        Resign
+      </button>
     </>
+  );
+
+  return (
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col md:flex-row md:h-screen">
+      <div className="md:w-64 p-4 md:p-6 flex md:flex-col gap-4 border-b md:border-b-0 md:border-r border-gray-700 justify-around md:justify-start">
+        <PlayerProfile player={1} color="bg-blue-500" />
+        <PlayerProfile player={2} color="bg-red-500" />
+      </div>
+
+      <div className="flex-1 flex items-center justify-center p-4 min-h-0 min-w-0">
+        <div className="w-full h-full max-w-[min(600px,100%)] max-h-[min(600px,100%)]">
+          <Board state={state} />
+        </div>
+      </div>
+
+      <div className="md:w-64 p-4 md:p-6 gap-3 border-t md:border-t-0 md:border-l border-gray-700 grid grid-cols-2 md:grid-cols-1">
+        <GameButtons />
+      </div>
+    </div>
   );
 }
