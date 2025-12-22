@@ -1,4 +1,5 @@
 import { Color, Piece } from "@/app/types"
+import { ChessKing, ChessQueen, ChessBishop, ChessKnight, ChessRook, ChessPawn } from "lucide-react"
 
 interface SquareProps {
   bgColor: Color,
